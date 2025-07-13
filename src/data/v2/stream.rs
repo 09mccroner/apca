@@ -60,7 +60,6 @@ use crate::ApiInfo;
 use crate::Error;
 use crate::Str;
 
-
 type UserMessage<B, Q, T> = <ParsedMessage<B, Q, T> as subscribe::Message>::UserMessage;
 
 /// Helper function to drive a [`Subscription`] related future to
@@ -79,11 +78,9 @@ where
   subscribe::drive::<ParsedMessage<B, Q, T>, _, _>(future, stream).await
 }
 
-
 mod private {
   pub trait Sealed {}
 }
-
 
 #[doc(hidden)]
 #[derive(Clone, Debug)]
@@ -95,7 +92,6 @@ pub enum SourceVariant {
   Url(String),
 }
 
-
 /// A trait representing the source from which to stream real time data.
 // TODO: Once we can use enumerations as const generic parameters we
 //       should probably switch over to repurposing `data::v2::Feed`
@@ -105,7 +101,6 @@ pub trait Source: private::Sealed {
   #[doc(hidden)]
   fn source() -> SourceVariant;
 }
-
 
 /// Use the Investors Exchange (IEX) as the data source.
 ///
@@ -123,7 +118,6 @@ impl Source for IEX {
 
 impl private::Sealed for IEX {}
 
-
 /// Use CTA (administered by NYSE) and UTP (administered by Nasdaq) SIPs
 /// as the data source.
 ///
@@ -139,7 +133,6 @@ impl Source for SIP {
 }
 
 impl private::Sealed for SIP {}
-
 
 /// A realtime data source that uses a custom URL.
 ///
@@ -193,10 +186,8 @@ where
 
 impl<URL> private::Sealed for CustomUrl<URL> {}
 
-
 /// A symbol.
 pub type Symbol = Str;
-
 
 /// Check whether a slice of symbols is normalized.
 ///
@@ -210,7 +201,7 @@ fn is_normalized(symbols: &[Symbol]) -> bool {
   fn check<'a>(last: &'a mut &'a Symbol) -> impl FnMut(&'a Symbol) -> bool + 'a {
     move |curr| {
       if let Some(Ordering::Greater) | None = PartialOrd::partial_cmp(last, &curr) {
-        return false
+        return false;
       }
       *last = curr;
       true
@@ -225,7 +216,6 @@ fn is_normalized(symbols: &[Symbol]) -> bool {
 
   it.all(check(&mut last))
 }
-
 
 /// Normalize a list of symbols.
 fn normalize(symbols: Cow<'static, [Symbol]>) -> Cow<'static, [Symbol]> {
@@ -247,7 +237,6 @@ fn normalize(symbols: Cow<'static, [Symbol]>) -> Cow<'static, [Symbol]> {
     symbols
   }
 }
-
 
 /// Aggregate data for an equity.
 #[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
@@ -275,7 +264,6 @@ pub struct Bar {
   pub timestamp: DateTime<Utc>,
 }
 
-
 /// A quote for an equity.
 #[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub struct Quote {
@@ -299,7 +287,6 @@ pub struct Quote {
   pub timestamp: DateTime<Utc>,
 }
 
-
 /// A trade for an equity.
 #[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub struct Trade {
@@ -320,7 +307,6 @@ pub struct Trade {
   pub timestamp: DateTime<Utc>,
 }
 
-
 /// An error as reported by the Alpaca Stream API.
 #[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize, ThisError)]
 #[error("{message} ({code})")]
@@ -332,7 +318,6 @@ pub struct StreamApiError {
   #[serde(rename = "msg")]
   pub message: String,
 }
-
 
 /// An enum representing the different messages we may receive over our
 /// websocket channel.
@@ -361,7 +346,6 @@ pub enum DataMessage<B = Bar, Q = Quote, T = Trade> {
   #[serde(rename = "error")]
   Error(StreamApiError),
 }
-
 
 /// A data item as received over our websocket channel.
 #[derive(Debug)]
@@ -395,7 +379,6 @@ impl<B, Q, T> Data<B, Q, T> {
   }
 }
 
-
 /// An enumeration of the supported control messages.
 #[derive(Debug)]
 #[doc(hidden)]
@@ -408,7 +391,6 @@ pub enum ControlMessage {
   /// An error reported by the Alpaca Stream API.
   Error(StreamApiError),
 }
-
 
 /// A websocket message that we tried to parse.
 type ParsedMessage<B, Q, T> =
@@ -456,7 +438,6 @@ impl<B, Q, T> subscribe::Message for ParsedMessage<B, Q, T> {
   }
 }
 
-
 /// Deserialize a normalized list of symbols from a string.
 #[inline]
 fn normalized_from_str<'de, D>(deserializer: D) -> Result<Cow<'static, [Symbol]>, D::Error>
@@ -465,7 +446,6 @@ where
 {
   Cow::<'static, [Symbol]>::deserialize(deserializer).map(normalize)
 }
-
 
 /// A type representing a normalized list of symbols.
 #[derive(Clone, Debug, Default, Deserialize, Eq, PartialEq, Serialize)]
@@ -508,7 +488,6 @@ impl<const N: usize> From<[&'static str; N]> for SymbolList {
   }
 }
 
-
 mod symbols_all {
   use super::*;
 
@@ -542,7 +521,6 @@ mod symbols_all {
   }
 }
 
-
 /// An enumeration of symbols to subscribe to.
 // Please note that the order of variants is important for
 // deserialization purposes: we first need to check whether we are
@@ -573,7 +551,6 @@ impl Default for Symbols {
     Self::List(SymbolList::from([]))
   }
 }
-
 
 /// A type defining the market data a client intends to subscribe to.
 #[derive(Clone, Debug, Default, Deserialize, Eq, PartialEq, Serialize)]
@@ -621,7 +598,6 @@ impl MarketData {
   }
 }
 
-
 /// A control message "request" sent over a websocket channel.
 #[derive(Debug, Deserialize, Eq, PartialEq, Serialize)]
 #[doc(hidden)]
@@ -645,7 +621,6 @@ pub enum Request<'d> {
   #[serde(rename = "unsubscribe")]
   Unsubscribe(Cow<'d, MarketData>),
 }
-
 
 /// A subscription allowing certain control operations pertaining
 /// a real time market data stream.
@@ -780,7 +755,6 @@ where
   }
 }
 
-
 type ParseFn<B, Q, T> = fn(
   Result<wrap::Message, WebSocketError>,
 ) -> Result<Result<Vec<DataMessage<B, Q, T>>, JsonError>, WebSocketError>;
@@ -794,7 +768,6 @@ type Stream<B, Q, T> = Map<
   >,
   MapFn<B, Q, T>,
 >;
-
 
 /// A type used for requesting a subscription to real time market
 /// data.
@@ -898,7 +871,6 @@ where
   }
 }
 
-
 #[allow(clippy::to_string_trait_impl)]
 #[cfg(test)]
 mod tests {
@@ -929,7 +901,6 @@ mod tests {
   use crate::websocket::test::mock_stream;
   use crate::Client;
 
-
   const CONN_RESP: &str = r#"[{"T":"success","msg":"connected"}]"#;
   // TODO: Until we can interpolate more complex expressions using
   //       `std::format` in a const context we have to hard code the
@@ -941,7 +912,6 @@ mod tests {
   const SUB_RESP: &str = r#"[{"T":"subscription","bars":["AAPL","VOO"]}]"#;
   const SUB_ERR_REQ: &str = r#"{"action":"subscribe","bars":[],"quotes":[],"trades":[]}"#;
   const SUB_ERR_RESP: &str = r#"[{"T":"error","code":400,"msg":"invalid syntax"}]"#;
-
 
   /// Exercise the `Sip::source` method.
   #[test]
@@ -1043,7 +1013,6 @@ mod tests {
       message
     );
   }
-
 
   /// A quote for an equity.
   #[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
@@ -1165,7 +1134,6 @@ mod tests {
       message
     );
   }
-
 
   /// A trade for an equity.
   #[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]

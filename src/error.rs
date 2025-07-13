@@ -18,7 +18,6 @@ use websocket_util::tungstenite::Error as WebSocketError;
 
 use crate::Str;
 
-
 /// An error encountered while issuing a request.
 #[derive(Debug, Error)]
 pub enum RequestError<E> {
@@ -48,7 +47,6 @@ pub enum RequestError<E> {
   ),
 }
 
-
 #[derive(Clone, Debug, Error)]
 pub struct HttpBody(Vec<u8>);
 
@@ -61,7 +59,6 @@ impl Display for HttpBody {
     Ok(())
   }
 }
-
 
 /// The error type as used by this crate.
 #[derive(Debug, Error)]
@@ -103,11 +100,9 @@ pub enum Error {
   ),
 }
 
-
 #[cfg(test)]
 mod tests {
   use super::*;
-
 
   /// Check that we can serialize a [`Side`] object.
   #[test]

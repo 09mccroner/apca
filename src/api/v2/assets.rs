@@ -10,7 +10,6 @@ use crate::api::v2::asset::Class;
 use crate::api::v2::asset::Status;
 use crate::Str;
 
-
 /// A GET request to be made to the /v2/assets endpoint.
 #[derive(Clone, Copy, Debug, Default, Deserialize, Eq, PartialEq, Serialize)]
 pub struct ListReq {
@@ -25,7 +24,6 @@ pub struct ListReq {
   #[serde(skip)]
   pub _non_exhaustive: (),
 }
-
 
 Endpoint! {
   /// The representation of a GET request to the /v2/assets endpoint.
@@ -46,7 +44,6 @@ Endpoint! {
   }
 }
 
-
 #[cfg(test)]
 mod tests {
   use super::*;
@@ -59,7 +56,6 @@ mod tests {
   use crate::api::v2::asset::Exchange;
   use crate::api_info::ApiInfo;
   use crate::Client;
-
 
   /// Check that we can serialize and deserialize a [`ListReq`].
   #[test]
@@ -74,7 +70,6 @@ mod tests {
     assert_eq!(from_json::<ListReq>(&json).unwrap(), request);
   }
 
-
   /// Make sure that we can list available US stock assets.
   #[test(tokio::test)]
   async fn list_us_stock_assets() {
@@ -88,7 +83,6 @@ mod tests {
     assert_eq!(asset.exchange, Exchange::Nasdaq);
     assert_eq!(asset.status, Status::Active);
   }
-
 
   /// Make sure that we can list available crypto currency assets.
   #[test(tokio::test)]

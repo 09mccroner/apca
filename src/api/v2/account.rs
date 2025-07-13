@@ -15,7 +15,6 @@ use uuid::Uuid;
 
 use crate::Str;
 
-
 /// A type representing an account ID.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Hash, PartialEq, Serialize)]
 pub struct Id(pub Uuid);
@@ -28,7 +27,6 @@ impl Deref for Id {
     &self.0
   }
 }
-
 
 /// An enumeration of the various states an account can be in.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
@@ -62,7 +60,6 @@ pub enum Status {
   #[serde(other, rename(serialize = "unknown"))]
   Unknown,
 }
-
 
 /// An object as returned by the /v2/account endpoint.
 // TODO: The `sma` field is not yet hooked up.
@@ -149,7 +146,6 @@ pub struct Account {
   pub _non_exhaustive: (),
 }
 
-
 Endpoint! {
   /// The representation of a GET request to the /v2/account endpoint.
   pub Get(()),
@@ -164,7 +160,6 @@ Endpoint! {
     "/v2/account".into()
   }
 }
-
 
 #[cfg(test)]
 mod tests {
@@ -181,7 +176,6 @@ mod tests {
   use crate::api_info::ApiInfo;
   use crate::Client;
   use crate::RequestError;
-
 
   /// Make sure that we can deserialize and serialize the reference
   /// account object.

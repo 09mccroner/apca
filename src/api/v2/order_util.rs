@@ -10,7 +10,6 @@ use crate::api::v2::order::Type;
 use crate::Client;
 use crate::RequestError;
 
-
 /// Create a limit order for a single share of the stock with the given
 /// symbol.
 pub(crate) async fn order_stock<S>(
@@ -29,7 +28,6 @@ where
 
   client.issue::<order::Create>(&request).await
 }
-
 
 /// Create a limit order for a single share of AAPL.
 pub(crate) async fn order_aapl(

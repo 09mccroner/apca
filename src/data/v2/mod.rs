@@ -8,6 +8,8 @@ mod unfold;
 pub mod bars;
 /// Functionality for retrieval of most recent quotes.
 pub mod last_quotes;
+/// Definitions for retrieving the latest trade price of symbols.
+pub mod last_trades;
 /// Functionality for retrieving historic quotes.
 pub mod quotes;
 /// Definitions for real-time streaming of market data.

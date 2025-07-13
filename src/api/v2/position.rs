@@ -15,7 +15,6 @@ use crate::api::v2::order;
 use crate::util::abs_num_from_str;
 use crate::Str;
 
-
 /// The side of a position.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum Side {
@@ -38,7 +37,6 @@ impl Not for Side {
     }
   }
 }
-
 
 /// A single position as returned by the /v2/positions endpoint on a GET
 /// request.
@@ -102,7 +100,6 @@ pub struct Position {
   pub _non_exhaustive: (),
 }
 
-
 Endpoint! {
   /// The representation of a GET request to the /v2/positions/{symbol}
   /// endpoint.
@@ -121,7 +118,6 @@ Endpoint! {
     format!("/v2/positions/{input}").into()
   }
 }
-
 
 Endpoint! {
   /// The representation of a DELETE request to the
@@ -147,7 +143,6 @@ Endpoint! {
   }
 }
 
-
 #[cfg(test)]
 mod tests {
   use super::*;
@@ -160,7 +155,6 @@ mod tests {
   use crate::api_info::ApiInfo;
   use crate::Client;
   use crate::RequestError;
-
 
   /// Check that we can negate a `Side` object.
   #[test]
@@ -321,7 +315,7 @@ mod tests {
       let symbol = asset::Symbol::Sym(symbol.to_string());
       if client.issue::<Get>(&symbol).await.is_ok() {
         // Seems as if a position exists. Try the next one.
-        continue
+        continue;
       }
 
       let result = client.issue::<Delete>(&symbol).await;

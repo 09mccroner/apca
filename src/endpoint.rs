@@ -7,7 +7,6 @@ use serde_urlencoded::ser::Error as UrlEncodeError;
 
 use thiserror::Error;
 
-
 /// An error type comprising various conversion errors we may encounter.
 #[derive(Debug, Error)]
 pub enum ConversionError {
@@ -18,7 +17,6 @@ pub enum ConversionError {
   #[error("failed to URL-encode data")]
   UrlEncode(#[from] UrlEncodeError),
 }
-
 
 /// An error as reported by API endpoints.
 // Note that actually this type should probably be specific to the API
@@ -31,7 +29,6 @@ pub struct ApiError {
   #[serde(rename = "message")]
   pub message: String,
 }
-
 
 /// A macro used for defining the properties for a request to a
 /// particular HTTP endpoint, without automated JSON parsing.

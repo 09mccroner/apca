@@ -4,7 +4,6 @@
 use crate::api::v2::position::Position;
 use crate::Str;
 
-
 Endpoint! {
   /// The representation of a GET request to the /v2/positions endpoint.
   pub List(()),
@@ -20,12 +19,10 @@ Endpoint! {
   }
 }
 
-
 // TODO: There is the possibility to issue a DELETE against the
 //       /v2/positions endpoint in order to liquidate all open
 //       positions, which may be interesting to use. However, that
 //       requires support for multi-status HTTP responses.
-
 
 #[cfg(test)]
 mod tests {
@@ -35,7 +32,6 @@ mod tests {
 
   use crate::api_info::ApiInfo;
   use crate::Client;
-
 
   #[test(tokio::test)]
   async fn list_positions() {

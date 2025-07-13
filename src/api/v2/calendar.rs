@@ -16,7 +16,6 @@ use serde_urlencoded::to_string as to_query;
 
 use crate::Str;
 
-
 /// Deserialize a `NaiveTime` from a string.
 fn deserialize_naive_time<'de, D>(deserializer: D) -> Result<NaiveTime, D::Error>
 where
@@ -38,7 +37,6 @@ where
 {
   serializer.serialize_str(&time.format("%H:%M").to_string())
 }
-
 
 /// The market open and close times for a specific date.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
@@ -65,7 +63,6 @@ pub struct OpenClose {
   #[serde(skip)]
   pub _non_exhaustive: (),
 }
-
 
 /// A GET request to be made to the /v2/calendar endpoint.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
@@ -96,7 +93,6 @@ impl From<Range<NaiveDate>> for ListReq {
   }
 }
 
-
 /// A helper for initializing [`ListReq`] objects.
 #[derive(Clone, Debug, Default, Eq, PartialEq)]
 #[allow(missing_copy_implementations)]
@@ -120,7 +116,6 @@ impl ListReqInit {
   }
 }
 
-
 Endpoint! {
   /// The representation of a GET request to the /v2/calendar endpoint.
   pub List(ListReq),
@@ -139,7 +134,6 @@ Endpoint! {
   }
 }
 
-
 #[cfg(test)]
 mod tests {
   use super::*;
@@ -151,7 +145,6 @@ mod tests {
   use serde_json::to_vec as to_json;
 
   use test_log::test;
-
 
   /// Check that we can serialize and deserialize an `OpenClose` object.
   #[test]

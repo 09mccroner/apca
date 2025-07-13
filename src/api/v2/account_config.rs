@@ -10,7 +10,6 @@ use serde_json::to_vec as to_json;
 
 use crate::Str;
 
-
 /// An enum representing the possible trade confirmation settings.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 #[non_exhaustive]
@@ -22,7 +21,6 @@ pub enum TradeConfirmation {
   #[serde(rename = "none")]
   None,
 }
-
 
 /// A response as returned by the /v2/account/configurations endpoint.
 // TODO: Not all fields are hooked up yet.
@@ -43,7 +41,6 @@ pub struct Configuration {
   pub _non_exhaustive: (),
 }
 
-
 Endpoint! {
   /// The representation of a GET request to the
   /// /v2/account/configurations endpoint.
@@ -59,7 +56,6 @@ Endpoint! {
     "/v2/account/configurations".into()
   }
 }
-
 
 Endpoint! {
   /// The representation of a PATCH request to the
@@ -91,7 +87,6 @@ Endpoint! {
   }
 }
 
-
 #[cfg(test)]
 mod tests {
   use super::*;
@@ -102,7 +97,6 @@ mod tests {
 
   use crate::api_info::ApiInfo;
   use crate::Client;
-
 
   #[test]
   fn parse_reference_configuration() {

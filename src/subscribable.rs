@@ -5,7 +5,6 @@ use async_trait::async_trait;
 
 use crate::Error;
 
-
 /// A trait representing "something" that users can subscribe to to
 /// receive updates through a stream.
 #[async_trait]

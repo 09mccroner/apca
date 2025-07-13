@@ -9,7 +9,6 @@ use serde::Serialize;
 
 use crate::Str;
 
-
 /// A type encapsulating market open/close timing information.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub struct Clock {
@@ -31,7 +30,6 @@ pub struct Clock {
   pub _non_exhaustive: (),
 }
 
-
 Endpoint! {
   /// The representation of a GET request to the /v2/clock endpoint.
   pub Get(()),
@@ -46,7 +44,6 @@ Endpoint! {
     "/v2/clock".into()
   }
 }
-
 
 #[cfg(test)]
 mod tests {
@@ -65,7 +62,6 @@ mod tests {
   use crate::api_info::ApiInfo;
   use crate::Client;
   use crate::RequestError;
-
 
   /// Check that we can deserialize and serialize the reference clock
   /// object.

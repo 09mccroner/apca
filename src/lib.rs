@@ -106,6 +106,8 @@ mod subscribable;
 mod util;
 mod websocket;
 
+pub use num_decimal;
+
 use std::borrow::Cow;
 
 pub use crate::api_info::ApiInfo;

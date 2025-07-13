@@ -19,7 +19,6 @@ use websocket_util::wrap::Wrapper;
 
 use crate::Error;
 
-
 /// A custom [`Result`]-style type that we can implement a foreign trait
 /// on.
 #[derive(Debug)]
@@ -41,7 +40,6 @@ impl<T, E> From<Result<T, E>> for MessageResult<T, E> {
   }
 }
 
-
 /// Internal function to connect to websocket server.
 async fn connect_internal(url: &Url) -> Result<WebSocketStream<MaybeTlsStream<TcpStream>>, Error> {
   let span = span!(Level::DEBUG, "stream");
@@ -62,7 +60,6 @@ async fn connect_internal(url: &Url) -> Result<WebSocketStream<MaybeTlsStream<Tc
   .await
 }
 
-
 /// Connect to a websocket server.
 pub(crate) async fn connect(
   url: &Url,
@@ -71,7 +68,6 @@ pub(crate) async fn connect(
     .await
     .map(|stream| Wrapper::builder().build(stream))
 }
-
 
 #[cfg(test)]
 pub(crate) mod test {
@@ -86,12 +82,10 @@ pub(crate) mod test {
   use crate::subscribable::Subscribable;
   use crate::ApiInfo;
 
-
   /// The fake key-id we use.
   pub(crate) const KEY_ID: &str = "USER12345678";
   /// The fake secret we use.
   pub(crate) const SECRET: &str = "justletmein";
-
 
   /// Instantiate a dummy websocket server serving messages as per the
   /// provided function `f` and attempt to connect to it to stream

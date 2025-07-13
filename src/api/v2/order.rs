@@ -26,7 +26,6 @@ use crate::api::v2::asset;
 use crate::util::vec_from_str;
 use crate::Str;
 
-
 /// An ID uniquely identifying an order.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Hash, PartialEq, Serialize)]
 pub struct Id(pub Uuid);
@@ -39,7 +38,6 @@ impl Deref for Id {
     &self.0
   }
 }
-
 
 /// The status an order can have.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
@@ -137,7 +135,6 @@ impl Status {
   }
 }
 
-
 /// The side an order is on.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum Side {
@@ -160,7 +157,6 @@ impl Not for Side {
     }
   }
 }
-
 
 /// The class an order belongs to.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
@@ -195,7 +191,6 @@ impl Default for Class {
   }
 }
 
-
 /// The type of an order.
 // Note that we currently do not support `stop_limit` orders.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
@@ -224,7 +219,6 @@ impl Default for Type {
     Self::Market
   }
 }
-
 
 /// A description of the time for which an order is valid.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
@@ -262,14 +256,12 @@ impl Default for TimeInForce {
   }
 }
 
-
 #[derive(Debug, Deserialize, Serialize)]
 #[serde(rename = "take_profit")]
 struct TakeProfitSerde {
   #[serde(rename = "limit_price")]
   limit_price: Num,
 }
-
 
 /// The take profit part of a bracket, one-cancels-other, or
 /// one-triggers-other order.
@@ -295,7 +287,6 @@ impl From<TakeProfit> for TakeProfitSerde {
   }
 }
 
-
 #[derive(Debug, Deserialize, Serialize)]
 #[serde(rename = "stop_loss")]
 struct StopLossSerde {
@@ -304,7 +295,6 @@ struct StopLossSerde {
   #[serde(rename = "limit_price", skip_serializing_if = "Option::is_none")]
   limit_price: Option<Num>,
 }
-
 
 /// The stop loss part of a bracket, one-cancels-other, or
 /// one-triggers-other order.
@@ -343,7 +333,6 @@ impl From<StopLoss> for StopLossSerde {
   }
 }
 
-
 /// An abstraction to be able to handle orders in both notional and quantity units.
 #[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
 #[serde(untagged)]
@@ -381,7 +370,6 @@ impl Amount {
     }
   }
 }
-
 
 /// A helper for initializing `CreateReq` objects.
 #[derive(Clone, Debug, Default, Eq, PartialEq)]
@@ -444,7 +432,6 @@ impl CreateReqInit {
   }
 }
 
-
 /// A POST request to be made to the /v2/orders endpoint.
 #[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub struct CreateReq {
@@ -505,7 +492,6 @@ pub struct CreateReq {
   pub _non_exhaustive: (),
 }
 
-
 /// A PATCH request to be made to the /v2/orders/{order-id} endpoint.
 #[derive(Clone, Debug, Default, Deserialize, Eq, PartialEq, Serialize)]
 pub struct ChangeReq {
@@ -533,7 +519,6 @@ pub struct ChangeReq {
   pub _non_exhaustive: (),
 }
 
-
 /// A deserialization function for order classes that may be an empty
 /// string.
 ///
@@ -549,7 +534,6 @@ where
     Class::deserialize(class.into_deserializer())
   }
 }
-
 
 /// A single order as returned by the /v2/orders endpoint on a GET
 /// request.
@@ -640,7 +624,6 @@ pub struct Order {
   pub _non_exhaustive: (),
 }
 
-
 Endpoint! {
   /// The representation of a GET request to the /v2/orders/{order-id}
   /// endpoint.
@@ -658,7 +641,6 @@ Endpoint! {
     format!("/v2/orders/{}", input.as_simple()).into()
   }
 }
-
 
 Endpoint! {
   /// The representation of a GET request to the
@@ -695,7 +677,6 @@ Endpoint! {
   }
 }
 
-
 Endpoint! {
   /// The representation of a POST request to the /v2/orders endpoint.
   pub Create(CreateReq),
@@ -724,7 +705,6 @@ Endpoint! {
     Ok(Some(bytes))
   }
 }
-
 
 Endpoint! {
   /// The representation of a PATCH request to the /v2/orders/{order-id}
@@ -758,7 +738,6 @@ Endpoint! {
     Ok(Some(bytes))
   }
 }
-
 
 EndpointNoParse! {
   /// The representation of a DELETE request to the /v2/orders/{order-id}
@@ -795,7 +774,6 @@ EndpointNoParse! {
   }
 }
 
-
 #[cfg(test)]
 mod tests {
   use super::*;
@@ -817,7 +795,6 @@ mod tests {
   use crate::api_info::ApiInfo;
   use crate::Client;
   use crate::RequestError;
-
 
   /// Check that we can serialize a [`Side`] object.
   #[test]

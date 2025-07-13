@@ -24,7 +24,6 @@ pub enum Status {
   All,
 }
 
-
 /// A GET request to be made to the /v2/orders endpoint.
 // Note that we do not expose or supply all parameters that the Alpaca
 // API supports.
@@ -70,7 +69,6 @@ impl Default for ListReq {
   }
 }
 
-
 Endpoint! {
   /// The representation of a GET request to the /v2/orders endpoint.
   pub List(ListReq),
@@ -89,7 +87,6 @@ Endpoint! {
     Ok(Some(to_query(input)?.into()))
   }
 }
-
 
 #[cfg(test)]
 mod tests {
@@ -115,7 +112,6 @@ mod tests {
   use crate::api::v2::updates;
   use crate::api_info::ApiInfo;
   use crate::Client;
-
 
   /// Make sure that we can serialize and deserialize an `ListReq`.
   #[test]

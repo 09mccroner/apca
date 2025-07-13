@@ -38,7 +38,6 @@ use crate::websocket::connect;
 use crate::websocket::MessageResult;
 use crate::Error;
 
-
 /// The status of an order, as reported as part of a `OrderUpdate`.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 #[non_exhaustive]
@@ -109,7 +108,6 @@ pub enum OrderStatus {
   Unknown,
 }
 
-
 /// An enumeration of the different event streams.
 #[derive(Copy, Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
 #[doc(hidden)]
@@ -118,7 +116,6 @@ pub enum StreamType {
   #[serde(rename = "trade_updates")]
   OrderUpdates,
 }
-
 
 /// A type capturing the stream types we may subscribe to.
 #[derive(Debug, Deserialize, Serialize)]
@@ -137,7 +134,6 @@ impl<'d> From<&'d [StreamType]> for Streams<'d> {
   }
 }
 
-
 /// The status reported in authentication control messages.
 #[derive(Debug, Deserialize, Eq, PartialEq, Serialize)]
 #[doc(hidden)]
@@ -150,7 +146,6 @@ pub enum AuthenticationStatus {
   #[serde(rename = "unauthorized")]
   Unauthorized,
 }
-
 
 /// The authentication related data provided in authentication control
 /// messages.
@@ -165,7 +160,6 @@ pub struct Authentication {
    *       not react on it anyway.
    */
 }
-
 
 /// A control message authentication request sent over a websocket
 /// channel.
@@ -185,7 +179,6 @@ pub enum Authenticate<'d> {
   },
 }
 
-
 /// A control message listen request sent over a websocket channel.
 #[derive(Debug, Deserialize, Serialize)]
 // Part of unofficial unstable API.
@@ -197,7 +190,6 @@ pub enum Listen<'d> {
   Request(Streams<'d>),
 }
 
-
 /// An enumeration of the supported control messages.
 #[derive(Debug)]
 #[doc(hidden)]
@@ -208,7 +200,6 @@ pub enum ControlMessage {
   /// subscribed/listening to now.
   ListeningMessage(Streams<'static>),
 }
-
 
 /// An enum representing the different messages we may receive over our
 /// websocket channel.
@@ -229,7 +220,6 @@ pub enum OrderMessage {
   ListeningMessage(Streams<'static>),
 }
 
-
 /// A representation of an order update that we receive through the
 /// "trade_updates" stream.
 #[derive(Clone, Debug, Deserialize, PartialEq, Serialize)]
@@ -241,7 +231,6 @@ pub struct OrderUpdate {
   #[serde(rename = "order")]
   pub order: order::Order,
 }
-
 
 /// A websocket message that we tried to parse.
 type ParsedMessage = MessageResult<Result<OrderMessage, JsonError>, WebSocketError>;
@@ -281,7 +270,6 @@ impl subscribe::Message for ParsedMessage {
   }
 }
 
-
 /// A subscription allowing certain control operations pertaining order
 /// update retrieval.
 #[derive(Debug)]
@@ -312,7 +300,7 @@ where
       Some(response) => match response {
         Ok(ControlMessage::AuthenticationMessage(authentication)) => {
           if authentication.status != AuthenticationStatus::Authorized {
-            return Ok(Err(Error::Str("authentication not successful".into())))
+            return Ok(Err(Error::Str("authentication not successful".into())));
           }
           Ok(Ok(()))
         },
@@ -344,7 +332,7 @@ where
           if !streams.streams.contains(&StreamType::OrderUpdates) {
             return Ok(Err(Error::Str(
               "server did not subscribe us to order update stream".into(),
-            )))
+            )));
           }
           Ok(Ok(()))
         },
@@ -362,10 +350,8 @@ where
   }
 }
 
-
 type Stream = Map<Wrapper<WebSocketStream<MaybeTlsStream<TcpStream>>>, MapFn>;
 type MapFn = fn(Result<wrap::Message, WebSocketError>) -> ParsedMessage;
-
 
 /// A type used for requesting a subscription to the "trade_updates"
 /// event stream.
@@ -423,7 +409,6 @@ impl Subscribable for OrderUpdates {
   }
 }
 
-
 #[cfg(test)]
 mod tests {
   use super::*;
@@ -452,7 +437,6 @@ mod tests {
   use crate::Client;
   use crate::Error;
 
-
   // TODO: Until we can interpolate more complex expressions using
   //       `std::format` in a const context we have to hard code the
   //       values of `crate::websocket::test::KEY_ID` and
@@ -462,7 +446,6 @@ mod tests {
     r#"{"stream":"authorization","data":{"action":"authenticate","status":"authorized"}}"#;
   const STREAM_REQ: &str = r#"{"action":"listen","data":{"streams":["trade_updates"]}}"#;
   const STREAM_RESP: &str = r#"{"stream":"listening","data":{"streams":["trade_updates"]}}"#;
-
 
   /// Check that we can encode an authentication request correctly.
   #[test]
@@ -558,7 +541,6 @@ mod tests {
       _ => panic!("Decoded unexpected message variant: {message:?}"),
     }
   }
-
 
   /// Check that we report the expected error when the server closes the
   /// connection unexpectedly.

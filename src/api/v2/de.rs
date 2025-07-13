@@ -368,7 +368,6 @@ where
   }
 }
 
-
 struct EnumDeserializer<'de, E>
 where
   E: Error,
@@ -786,7 +785,7 @@ where
           return Err(Error::invalid_value(
             Unexpected::Map,
             &"map with a single key",
-          ))
+          ));
         }
         (variant, Some(value))
       },
@@ -831,7 +830,6 @@ where
     self
   }
 }
-
 
 pub(crate) struct TaggedContent<'de, T> {
   pub(crate) tag: T,
@@ -901,7 +899,7 @@ where
       match k {
         TagOrContent::Tag => {
           if tag.is_some() {
-            return Err(Error::duplicate_field(self.tag_name))
+            return Err(Error::duplicate_field(self.tag_name));
           }
           tag = Some(map.next_value()?);
         },

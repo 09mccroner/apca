@@ -21,7 +21,6 @@ use crate::api::v2::account;
 use crate::api::v2::asset;
 use crate::Str;
 
-
 /// An ID uniquely identifying a watchlist.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Hash, PartialEq)]
 pub struct Id(pub Uuid);
@@ -34,7 +33,6 @@ impl Deref for Id {
     &self.0
   }
 }
-
 
 /// A watchlist.
 #[derive(Debug, Deserialize, Eq, PartialEq)]
@@ -63,7 +61,6 @@ pub struct Watchlist {
   pub _non_exhaustive: (),
 }
 
-
 /// A request to create a watch list.
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
 pub struct CreateReq {
@@ -77,7 +74,6 @@ pub struct CreateReq {
   #[doc(hidden)]
   pub _non_exhaustive: (),
 }
-
 
 /// A helper for initializing [`CreateReq`] objects.
 #[derive(Clone, Debug, Default, Eq, PartialEq)]
@@ -109,12 +105,10 @@ impl CreateReqInit {
   }
 }
 
-
 /// A request to update a watch list.
 pub type UpdateReq = CreateReq;
 /// A helper for initializing [`UpdateReq`] objects.
 pub type UpdateReqInit = CreateReqInit;
-
 
 Endpoint! {
   /// The representation of a POST request to the /v2/watchlists endpoint.
@@ -146,7 +140,6 @@ Endpoint! {
   }
 }
 
-
 Endpoint! {
   /// The representation of a GET request to the
   /// /v2/watchlists/{watchlist-id} endpoint.
@@ -164,7 +157,6 @@ Endpoint! {
     format!("/v2/watchlists/{}", input.as_simple()).into()
   }
 }
-
 
 Endpoint! {
   /// The representation of a PUT request to the
@@ -200,7 +192,6 @@ Endpoint! {
   }
 }
 
-
 EndpointNoParse! {
   /// The representation of a DELETE request to the
   /// /v2/watchlists/{watchlist-id} endpoint.
@@ -234,7 +225,6 @@ EndpointNoParse! {
   }
 }
 
-
 #[cfg(test)]
 mod tests {
   use super::*;
@@ -245,7 +235,6 @@ mod tests {
   use crate::RequestError;
 
   use test_log::test;
-
 
   /// Check that we can create, retrieve, and delete a watchlist.
   #[test(tokio::test)]

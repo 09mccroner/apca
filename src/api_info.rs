@@ -20,7 +20,6 @@ const ENV_KEY_ID: &str = "APCA_API_KEY_ID";
 /// The environment variable representing the secret key.
 const ENV_SECRET: &str = "APCA_API_SECRET_KEY";
 
-
 /// Convert a Trading API base URL into the corresponding one for
 /// websocket streaming.
 fn make_api_stream_url(base_url: Url) -> Result<Url, Error> {
@@ -31,7 +30,6 @@ fn make_api_stream_url(base_url: Url) -> Result<Url, Error> {
   url.set_path("stream");
   Ok(url)
 }
-
 
 /// An object encapsulating the information used for working with the
 /// Alpaca API.
@@ -152,11 +150,9 @@ impl ApiInfo {
   }
 }
 
-
 #[cfg(test)]
 mod tests {
   use super::*;
-
 
   /// Check that we can create an [`ApiInfo`] object from its
   /// constituent parts.

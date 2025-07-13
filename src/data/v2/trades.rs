@@ -15,7 +15,6 @@ use crate::data::DATA_BASE_URL;
 use crate::util::vec_from_str;
 use crate::Str;
 
-
 /// A GET request to be issued to the /v2/stocks/{symbol}/trades endpoint.
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
 pub struct ListReq {
@@ -48,7 +47,6 @@ pub struct ListReq {
   #[serde(skip)]
   pub _non_exhaustive: (),
 }
-
 
 /// A helper for initializing [`ListReq`] objects.
 #[derive(Clone, Debug, Default, Eq, PartialEq)]
@@ -83,7 +81,6 @@ impl ListReqInit {
   }
 }
 
-
 /// A market data trade as returned by the /v2/stocks/{symbol}/trades endpoint.
 #[derive(Clone, Debug, Deserialize, Eq, PartialEq)]
 pub struct Trade {
@@ -102,7 +99,6 @@ pub struct Trade {
   pub _non_exhaustive: (),
 }
 
-
 /// A collection of trades as returned by the API. This is one page of trades.
 #[derive(Debug, Deserialize, Eq, PartialEq)]
 pub struct Trades {
@@ -120,7 +116,6 @@ pub struct Trades {
   #[serde(skip)]
   pub _non_exhaustive: (),
 }
-
 
 Endpoint! {
   /// The representation of a GET request to the /v2/stocks/{symbol}/trades endpoint.
@@ -147,7 +142,6 @@ Endpoint! {
   }
 }
 
-
 #[cfg(test)]
 mod tests {
   use super::*;
@@ -163,7 +157,6 @@ mod tests {
   use crate::api_info::ApiInfo;
   use crate::Client;
   use crate::RequestError;
-
 
   /// Verify that we can properly parse a reference trades response.
   #[test]

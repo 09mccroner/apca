@@ -17,7 +17,6 @@ use uuid::Uuid;
 
 use crate::Str;
 
-
 /// An ID uniquely identifying an asset.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Hash, PartialEq, Serialize)]
 pub struct Id(pub Uuid);
@@ -30,7 +29,6 @@ impl Deref for Id {
     &self.0
   }
 }
-
 
 /// An enumeration of the various asset classes available.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
@@ -87,7 +85,6 @@ impl FromStr for Class {
   }
 }
 
-
 /// The status an asset can have.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 #[non_exhaustive]
@@ -125,7 +122,6 @@ impl Default for Status {
   }
 }
 
-
 /// An enumeration of all possible symbol parsing errors.
 #[derive(Clone, Debug, Eq, PartialEq)]
 #[non_exhaustive]
@@ -153,7 +149,6 @@ impl Display for ParseSymbolError {
     }
   }
 }
-
 
 /// A symbol and the various ways to represent it.
 #[derive(Clone, Debug, Deserialize, Eq, PartialEq)]
@@ -205,7 +200,7 @@ impl FromStr for Symbol {
           });
 
           if let Err(c) = invalid {
-            return Err(ParseSymbolError::InvalidSymbol(c))
+            return Err(ParseSymbolError::InvalidSymbol(c));
           }
           Self::Sym((*sym).to_string())
         }
@@ -248,7 +243,6 @@ impl Serialize for Symbol {
     serializer.serialize_str(&self.to_string())
   }
 }
-
 
 /// An enumeration of the various supported exchanges.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
@@ -325,7 +319,6 @@ impl FromStr for Exchange {
   }
 }
 
-
 /// The representation of an asset as used by Alpaca.
 #[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub struct Asset {
@@ -366,7 +359,6 @@ pub struct Asset {
   pub _non_exhaustive: (),
 }
 
-
 Endpoint! {
   /// The representation of a GET request to the /v2/assets/{symbol} endpoint.
   pub Get(Symbol),
@@ -385,7 +377,6 @@ Endpoint! {
   }
 }
 
-
 #[cfg(test)]
 mod tests {
   use super::*;
@@ -399,7 +390,6 @@ mod tests {
 
   use crate::api_info::ApiInfo;
   use crate::Client;
-
 
   /// Verify that we can parse various symbols.
   #[test]

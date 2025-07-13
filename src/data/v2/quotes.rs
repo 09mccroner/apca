@@ -16,7 +16,6 @@ use crate::Str;
 /// A quote as returned by the /v2/stocks/{symbol}/quotes endpoint.
 pub use super::last_quotes::Quote;
 
-
 /// A collection of quotes as returned by the API. This is one page of
 /// quotes.
 #[derive(Clone, Debug, Deserialize, Eq, PartialEq)]
@@ -36,7 +35,6 @@ pub struct Quotes {
   #[serde(skip)]
   pub _non_exhaustive: (),
 }
-
 
 /// A helper for initializing [`ListReq`] objects.
 #[derive(Clone, Debug, Default, Eq, PartialEq)]
@@ -71,7 +69,6 @@ impl ListReqInit {
   }
 }
 
-
 /// A GET request to be made to the /v2/stocks/{symbol}/quotes endpoint.
 // TODO: Not all fields are hooked up.
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
@@ -103,7 +100,6 @@ pub struct ListReq {
   pub _non_exhaustive: (),
 }
 
-
 Endpoint! {
   /// The representation of a GET request to the
   /// /v2/stocks/{symbol}/quotes endpoint.
@@ -131,7 +127,6 @@ Endpoint! {
   }
 }
 
-
 #[cfg(test)]
 mod tests {
   use super::*;
@@ -145,7 +140,6 @@ mod tests {
   use crate::api_info::ApiInfo;
   use crate::Client;
   use crate::RequestError;
-
 
   /// Check that we can retrieve quotes for a specific time frame.
   #[test(tokio::test)]

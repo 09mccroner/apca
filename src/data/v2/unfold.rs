@@ -13,7 +13,6 @@ use futures::StreamExt as _;
 
 use websocket_util::tungstenite::Error as WebSocketError;
 
-
 /// A wrapper around a stream that "unfolds" vectors of messages,
 /// delivering them one by one.
 #[derive(Debug)]
@@ -54,17 +53,17 @@ where
         // vastly ineffective for large vectors, though, because
         // subsequent elements all will have to be copied.
         let message = self.messages.remove(0);
-        break Poll::Ready(Some(Ok(Ok(message))))
+        break Poll::Ready(Some(Ok(Ok(message))));
       } else {
         match self.inner.poll_next_unpin(ctx) {
           Poll::Pending => {
             // No new data is available yet. There is nothing to do for us
             // except bubble up this result.
-            break Poll::Pending
+            break Poll::Pending;
           },
           Poll::Ready(None) => {
             // The stream is exhausted. Bubble up the result and be done.
-            break Poll::Ready(None)
+            break Poll::Ready(None);
           },
           Poll::Ready(Some(Err(err))) => break Poll::Ready(Some(Err(err))),
           Poll::Ready(Some(Ok(Err(err)))) => break Poll::Ready(Some(Ok(Err(err)))),
@@ -103,7 +102,6 @@ where
   }
 }
 
-
 #[cfg(test)]
 mod tests {
   use super::*;
@@ -112,7 +110,6 @@ mod tests {
   use futures::TryStreamExt as _;
 
   use test_log::test;
-
 
   /// Check that we can unfold a stream of vectors of messages.
   #[test(tokio::test)]

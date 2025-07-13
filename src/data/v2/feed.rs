@@ -3,7 +3,6 @@
 
 use serde::Serialize;
 
-
 /// An enumeration of the different supported data feeds.
 #[derive(Copy, Clone, Debug, Eq, PartialEq, Serialize)]
 #[non_exhaustive]

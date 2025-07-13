@@ -44,7 +44,6 @@ use crate::error::RequestError;
 use crate::subscribable::Subscribable;
 use crate::Error;
 
-
 /// A type providing a debug representation of HTTP headers, with
 /// sensitive data being masked out.
 struct DebugHeaders<'h> {
@@ -66,7 +65,6 @@ impl Debug for DebugHeaders<'_> {
       .finish()
   }
 }
-
 
 /// A type providing a debug representation of an HTTP request, with
 /// sensitive data being masked out.
@@ -92,12 +90,10 @@ impl Debug for DebugRequest<'_> {
   }
 }
 
-
 /// Emit a debug representation of an HTTP request.
 fn debug_request(request: &Request<Full<Bytes>>) -> DebugValue<DebugRequest<'_>> {
   debug(DebugRequest { request })
 }
-
 
 /// A builder for creating customized `Client` objects.
 #[derive(Debug)]
@@ -147,7 +143,6 @@ impl Default for Builder {
     }
   }
 }
-
 
 /// A `Client` is the entity used by clients of this module for
 /// interacting with the Alpaca API.
@@ -210,7 +205,6 @@ impl Client {
       .header(HDR_KEY_ID, self.api_info.key_id.as_str())
       .header(HDR_SECRET, self.api_info.secret.as_str())
       .body(Full::new(body))?;
-
 
     Self::maybe_add_gzip_header(&mut request);
     Ok(request)
@@ -336,7 +330,6 @@ impl Client {
   }
 }
 
-
 #[cfg(test)]
 mod tests {
   use super::*;
@@ -348,7 +341,6 @@ mod tests {
   use crate::endpoint::ApiError;
   use crate::Str;
 
-
   Endpoint! {
     GetNotFound(()),
     Ok => (), [],
@@ -358,7 +350,6 @@ mod tests {
       "/v2/foobarbaz".into()
     }
   }
-
 
   /// Check that we can retrieve the `ApiInfo` object used by a client.
   #[test]

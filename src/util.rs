@@ -11,7 +11,6 @@ use serde::Serialize;
 use serde::Serializer;
 use serde_variant::to_variant_name;
 
-
 /// Deserialize a `Num` from a string, parsing the value as signed first
 /// and then dropping the sign.
 pub(crate) fn abs_num_from_str<'de, D>(deserializer: D) -> Result<Num, D::Error>
@@ -20,7 +19,6 @@ where
 {
   Num::deserialize(deserializer).map(|num| if num.is_negative() { num * -1 } else { num })
 }
-
 
 /// Deserialize a `Vec` from a string that could contain a `null`.
 pub(crate) fn vec_from_str<'de, D, T>(deserializer: D) -> Result<Vec<T>, D::Error>
@@ -31,7 +29,6 @@ where
   let vec = Option::<Vec<T>>::deserialize(deserializer)?;
   Ok(vec.unwrap_or_default())
 }
-
 
 /// Deserialize a `Vec<String>` from a string (that could be `null`)
 /// with comma separated elements.
@@ -45,7 +42,6 @@ where
 
   Ok(vec)
 }
-
 
 /// Serialize a slice into a string of textual representations of the
 /// elements, retrieved by applying a function to each, and then
@@ -70,7 +66,6 @@ where
     serializer.serialize_none()
   }
 }
-
 
 /// Serialize a slice into a string of textual representations of the
 /// elements separated by comma.

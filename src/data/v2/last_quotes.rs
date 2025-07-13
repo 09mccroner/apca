@@ -18,7 +18,6 @@ use crate::data::DATA_BASE_URL;
 use crate::util::string_slice_to_str;
 use crate::Str;
 
-
 /// A GET request to be made to the /v2/stocks/quotes/latest endpoint.
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
 pub struct GetReq {
@@ -33,7 +32,6 @@ pub struct GetReq {
   #[serde(skip)]
   pub _non_exhaustive: (),
 }
-
 
 /// A helper for initializing [`GetReq`] objects.
 #[derive(Clone, Debug, Default, Eq, PartialEq)]
@@ -62,7 +60,6 @@ impl GetReqInit {
   }
 }
 
-
 /// A quote as returned by the /v2/stocks/quotes/latest endpoint.
 // TODO: Not all fields are hooked up.
 #[derive(Clone, Debug, Deserialize, Eq, PartialEq)]
@@ -87,7 +84,6 @@ pub struct Quote {
   #[serde(skip)]
   pub _non_exhaustive: (),
 }
-
 
 EndpointNoParse! {
   /// The representation of a GET request to the
@@ -146,7 +142,6 @@ EndpointNoParse! {
   }
 }
 
-
 #[cfg(test)]
 mod tests {
   use super::*;
@@ -160,7 +155,6 @@ mod tests {
   use crate::api_info::ApiInfo;
   use crate::Client;
   use crate::RequestError;
-
 
   /// Check that we can parse the reference quotes from the
   /// documentation.

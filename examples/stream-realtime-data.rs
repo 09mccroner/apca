@@ -25,7 +25,6 @@ use num_decimal::Num;
 use serde::Deserialize;
 use serde::Serialize;
 
-
 /// A trade for an equity.
 ///
 /// This is a user-defined type with additional fields compared to
@@ -62,7 +61,6 @@ pub struct Trade {
   #[serde(rename = "u", default)]
   pub update: Option<String>,
 }
-
 
 #[tokio::main]
 async fn main() {

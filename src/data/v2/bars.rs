@@ -15,7 +15,6 @@ use crate::data::DATA_BASE_URL;
 use crate::util::vec_from_str;
 use crate::Str;
 
-
 /// An enumeration of the various supported time frames.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize)]
 #[non_exhaustive]
@@ -23,14 +22,23 @@ pub enum TimeFrame {
   /// A time frame of one minute.
   #[serde(rename = "1Min")]
   OneMinute,
+  #[serde(rename = "5Min")]
+  FiveMinutes,
+  #[serde(rename = "15Min")]
+  FifteenMinutes,
   /// A time frame of one hour.
   #[serde(rename = "1Hour")]
   OneHour,
+  #[serde(rename = "4Hour")]
+  FourHours,
   /// A time frame of one day.
   #[serde(rename = "1Day")]
   OneDay,
+  #[serde(rename = "1Week")]
+  OneWeek,
+  #[serde(rename = "1Month")]
+  OneMonth,
 }
-
 
 /// An enumeration of the possible adjustments.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize)]
@@ -49,7 +57,6 @@ pub enum Adjustment {
   #[serde(rename = "all")]
   All,
 }
-
 
 /// A GET request to be issued to the /v2/stocks/{symbol}/bars endpoint.
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
@@ -89,7 +96,6 @@ pub struct ListReq {
   #[serde(skip)]
   pub _non_exhaustive: (),
 }
-
 
 /// A helper for initializing [`ListReq`] objects.
 #[derive(Clone, Debug, Default, Eq, PartialEq)]
@@ -134,7 +140,6 @@ impl ListReqInit {
   }
 }
 
-
 /// A market data bar as returned by the /v2/stocks/{symbol}/bars endpoint.
 #[derive(Clone, Debug, Deserialize, Eq, PartialEq)]
 pub struct Bar {
@@ -165,7 +170,6 @@ pub struct Bar {
   pub _non_exhaustive: (),
 }
 
-
 /// A collection of bars as returned by the API. This is one page of
 /// bars.
 #[derive(Debug, Deserialize, Eq, PartialEq)]
@@ -185,7 +189,6 @@ pub struct Bars {
   #[serde(skip)]
   pub _non_exhaustive: (),
 }
-
 
 Endpoint! {
   /// The representation of a GET request to the /v2/stocks/{symbol}/bars endpoint.
@@ -212,7 +215,6 @@ Endpoint! {
   }
 }
 
-
 #[cfg(test)]
 mod tests {
   use super::*;
@@ -230,7 +232,6 @@ mod tests {
   use crate::Client;
   use crate::RequestError;
 
-
   #[track_caller]
   fn assert_in(value: &Num, range: RangeInclusive<u64>) {
     assert!(
@@ -238,7 +239,6 @@ mod tests {
       "{value} {range:?}"
     )
   }
-
 
   /// Verify that we can properly parse a reference bar response.
   #[test]

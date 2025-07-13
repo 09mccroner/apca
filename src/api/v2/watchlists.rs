@@ -10,7 +10,6 @@ use crate::api::v2::account;
 use crate::api::v2::watchlist;
 use crate::Str;
 
-
 /// A watchlist item.
 #[derive(Clone, Debug, Deserialize, Eq, PartialEq)]
 pub struct WatchlistItem {
@@ -35,7 +34,6 @@ pub struct WatchlistItem {
   pub _non_exhaustive: (),
 }
 
-
 Endpoint! {
   /// The representation of a GET request to the /v2/watchlists endpoint.
   pub Get(()),
@@ -51,7 +49,6 @@ Endpoint! {
   }
 }
 
-
 #[cfg(test)]
 mod tests {
   use super::*;
@@ -63,7 +60,6 @@ mod tests {
   use crate::api_info::ApiInfo;
   use crate::Client;
   use test_log::test;
-
 
   /// Check that we can list existing watchlists.
   #[test(tokio::test)]

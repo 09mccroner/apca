@@ -20,7 +20,6 @@ use crate::util::abs_num_from_str;
 use crate::util::enum_slice_to_str;
 use crate::Str;
 
-
 /// Deserialize a `DateTime<Utc>` from a simple date.
 fn datetime_from_date_str<'de, D>(deserializer: D) -> Result<DateTime<Utc>, D::Error>
 where
@@ -30,7 +29,6 @@ where
   // SANITY: We know that our hour, minute, and second are valid.
   Ok(Utc.from_utc_datetime(&date.and_hms_opt(0, 0, 0).unwrap()))
 }
-
 
 /// An enum representing the various non-trade activities.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
@@ -148,7 +146,6 @@ pub enum ActivityType {
   Unknown,
 }
 
-
 /// An enumeration describing the side of a trade activity.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq)]
 #[non_exhaustive]
@@ -163,7 +160,6 @@ pub enum Side {
   #[serde(rename = "sell_short")]
   ShortSell,
 }
-
 
 /// A trade related activity.
 // TODO: Not all fields are hooked up.
@@ -203,7 +199,6 @@ pub struct TradeActivity {
   #[serde(skip)]
   pub _non_exhaustive: (),
 }
-
 
 /// A non-trade related activity.
 ///
@@ -285,12 +280,10 @@ impl<T> NonTradeActivityImpl<T> {
   }
 }
 
-
 /// A non-trade related activity.
 ///
 /// Examples include dividend payments or cash transfers.
 pub type NonTradeActivity = NonTradeActivityImpl<ActivityType>;
-
 
 /// An activity.
 #[derive(Clone, Debug, Eq, PartialEq)]
@@ -361,7 +354,6 @@ impl<'de> Deserialize<'de> for Activity {
   }
 }
 
-
 /// The direction in which account activities are reported.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize)]
 pub enum Direction {
@@ -381,7 +373,6 @@ impl Default for Direction {
     Self::Descending
   }
 }
-
 
 /// A GET request to be made to the /v2/account/activities endpoint.
 #[derive(Clone, Debug, Default, Eq, PartialEq, Serialize)]
@@ -414,7 +405,6 @@ pub struct ActivityReq {
   pub _non_exhaustive: (),
 }
 
-
 Endpoint! {
   /// The representation of a GET request to the /v2/account/activities
   /// endpoint.
@@ -435,7 +425,6 @@ Endpoint! {
   }
 }
 
-
 #[cfg(test)]
 mod tests {
   use super::*;
@@ -450,7 +439,6 @@ mod tests {
 
   use crate::api_info::ApiInfo;
   use crate::Client;
-
 
   #[test]
   fn parse_reference_trade_activity() {
@@ -507,7 +495,6 @@ mod tests {
     assert_eq!(non_trade.symbol, Some("T".into()));
     assert_eq!(non_trade.per_share_amount, Some(Num::new(51, 100)));
   }
-
 
   #[test]
   fn parse_dividend() {
