@@ -22,20 +22,25 @@ pub enum TimeFrame {
   /// A time frame of one minute.
   #[serde(rename = "1Min")]
   OneMinute,
+  /// A time frame of five minutes.
   #[serde(rename = "5Min")]
   FiveMinutes,
+  /// A time frame of fifteen minutes.
   #[serde(rename = "15Min")]
   FifteenMinutes,
   /// A time frame of one hour.
   #[serde(rename = "1Hour")]
   OneHour,
+  /// A time frame of four hour.
   #[serde(rename = "4Hour")]
   FourHours,
   /// A time frame of one day.
   #[serde(rename = "1Day")]
   OneDay,
+  /// A time frame of one week.
   #[serde(rename = "1Week")]
   OneWeek,
+  /// A time frame of one month.
   #[serde(rename = "1Month")]
   OneMonth,
 }
