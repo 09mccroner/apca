@@ -28,6 +28,9 @@ pub enum TimeFrame {
   /// A time frame of fifteen minutes.
   #[serde(rename = "15Min")]
   FifteenMinutes,
+  /// A time frame of fifteen minutes.
+  #[serde(rename = "30Min")]
+  ThirtyMinutes,
   /// A time frame of one hour.
   #[serde(rename = "1Hour")]
   OneHour,
